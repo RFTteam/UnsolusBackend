@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
                 'Email' =>$faker->unique()->email,
                 'Passwd' =>$faker->password,
                 'Country'=>$faker->country,
-                'Lang'=>'hungarian',
+                'Lang'=>$faker->languageCode,
                 'DateOfBirth'=>$faker->dateTime($max = 'now')
                 //'created_at' => $faker->dateTime($max = 'now'),
                 //'updated_at' => $faker->dateTime($max = 'now'),
