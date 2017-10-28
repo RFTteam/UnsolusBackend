@@ -15,14 +15,14 @@ class CreateGamerinfoTable extends Migration
     {
         Schema::create('gamerinfo', function (Blueprint $table) {
             $table->increments('GamerId');
-            $table->integer('UserId')->unsigned()->nullable(false);
-            $table->integer('GameId')->unsigned()->nullable(false);
+            $table->integer('UserID')->unsigned()->nullable(false);
+            $table->integer('GameID')->unsigned()->nullable(false);
             $table->string('GamerName',20)->nullable(false);
             $table->timestamps();
         });
          Schema::table('gamerinfo', function($table) {
-             $table->foreign('UserId')->references('UserId')->on('users')->onDelete('cascade');
-             $table->foreign('GameId')->references('GameId')->on('games')->onDelete('cascade');
+             $table->foreign('UserID')->references('UserID')->on('users')->onDelete('cascade');
+             $table->foreign('GameID')->references('GameID')->on('games')->onDelete('cascade');
             });
     }
 

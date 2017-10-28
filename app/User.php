@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'Username','Country','Lang','Email','DateOfBirth','Passwd',
+        'Username','CountryID','LanguageID','Email','DateOfBirth','Passwd',
     ];
 
     /**
@@ -31,5 +31,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Gamerinfo');
     }
-    
+    public function country()
+    {
+        return $this->belongsTo('App\Country');
+    }
+    public function language()
+    {
+        return $this->belongsTo('App\Language');
+    }
 }

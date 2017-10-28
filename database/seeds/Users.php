@@ -10,14 +10,22 @@ class Users extends Seeder
 {
     public function run()
     {
-        /*User::create([
-            'Username' => $faker->Username,
-            'Email' =>$faker->Email,
-            'Passwd' =>'valami',
-            'Country'=>'Hungary',
-            'Lang'=>'hungarian',
-            'DateOfBirth'=>$faker->DateOfBirth
-        ]);*/
-        // TestDummy::times(20)->create('App\Post');
+        DB::table('users')->delete();
+        $faker = Faker\Factory::create();
+        $countryIDs = DB::table('countries')->pluck('CountryId')->all();
+        $languageIDs= DB::table('languages')->pluck('LanguageId')->all();
+        foreach (range(1,10) as $index) {
+            
+            DB::table('users')->insert([
+                'Username' => $faker->name,
+                'Email' =>$faker->unique()->email,
+                'Passwd' =>$faker->password,
+                'CountryID'=>$faker->randomElement($countryIDs),
+                'LanguageID'=>$faker->randomElement($languageIDs),
+                'DateOfBirth'=>$faker->dateTime($max = 'now')
+                //'created_at' => $faker->dateTime($max = 'now'),
+                //'updated_at' => $faker->dateTime($max = 'now'),
+            ]);
+        }
     }
 }

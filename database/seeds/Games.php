@@ -11,10 +11,16 @@ class Games extends Seeder
 {
     public function run()
     {
-        /*Game::create([
-            'GameName' => $faker->GameName,
-            'Shortname' =>$faker->Shortname,
-        ]);*/
-        // TestDummy::times(20)->create('App\Post');
+        $faker = Faker\Factory::create();
+        DB::table('games')->delete();
+        $games=array('Fortnite'=>'Fortnite','LoL'=>'League of Legends');
+        foreach($games as $key => $value){
+            DB::table('games')->insert([
+                'GameName' =>$value,
+                'Shortname' =>$key
+            //'created_at' => $faker->dateTime($max = 'now'),
+            //'updated_at' => $faker->dateTime($max = 'now'),
+            ]);
+        }
     }
 }
