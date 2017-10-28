@@ -26,7 +26,12 @@ class AddUserForeignKey extends Migration
      */
     public function down()
     {
-        /*$table->dropForeign('CountryID');
-        $table->dropForeign('LanguageID');*/
+        Schema::table('users', function($table)
+        {
+        $table->dropForeign('users_CountryID_foreign');
+        $table->dropColumn('CountryID');
+        $table->dropForeign('users_LanguageID_foreign');
+        $table->dropColumn('LanguageID');
+        });
     }
 }
