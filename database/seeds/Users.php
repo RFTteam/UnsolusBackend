@@ -19,7 +19,7 @@ class Users extends Seeder
             DB::table('users')->insert([
                 'Username' => $faker->name,
                 'Email' =>$faker->unique()->email,
-                'Passwd' =>$faker->password,
+                'Password' =>$faker->password,
                 'CountryID'=>$faker->randomElement($countryIDs),
                 'LanguageID'=>$faker->randomElement($languageIDs),
                 'DateOfBirth'=>$faker->dateTime($max = 'now')

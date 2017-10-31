@@ -19,10 +19,10 @@ class CreateUsersTable extends Migration
             $table->string('Email',50)->unique()->nullable(false);
             //$table->string('Country',40);
             //$table->string('Lang',20);
-            $table->integer('CountryID')->unsigned()->nullable(false);
-            $table->integer('LanguageID')->unsigned()->nullable(false);
-            $table->date('DateOfBirth');
-            $table->string('Passwd',50)->nullable(false);
+            $table->integer('CountryID')->unsigned()->nullable();
+            $table->integer('LanguageID')->unsigned()->nullable();
+            $table->date('DateOfBirth')->nullable();
+            $table->string('Password',50)->nullable(false);
             $table->rememberToken();
             $table->timestamps();
         });
