@@ -13,17 +13,18 @@ class UserController extends Controller
     public function postUser(Request $request)
     {
         $rules = array(
-            'Username'       => 'required',
-            'Email'      => 'required|email',
-            'Password' => 'required'
+            'Username'       => 'required|unique:Users',
+            'Email'      => 'required|email|unique:Users',
+            'Password' => 'required|min:2'
         );
         $validator = Validator::make(Input::all(), $rules);
         
         // process the login
         if ($validator->fails()) {
+            $messages = $validator->messages();
             $returnData = array(
-                'status' => 'error',
-                'message' => 'An error occurred!'
+                'status' => 401,
+                'message' => $messages
             );
             return response()->json($returnData, 500);
         } else {
