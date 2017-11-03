@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->integer('CountryID')->unsigned()->nullable();
             $table->integer('LanguageID')->unsigned()->nullable();
             $table->date('DateOfBirth')->nullable();
-            $table->string('Password',50)->nullable(false);
+            $table->string('Password',80)->nullable(false);
             $table->rememberToken();
             $table->timestamps();
         });

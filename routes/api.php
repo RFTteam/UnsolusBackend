@@ -17,6 +17,15 @@ Route::post('/register',[
     'uses'=>'UserController@postUser'
 ]);
 
+
+Route::post('/signin',[
+    'uses'=>'UserController@signin'
+]);
+
+Route::get('/users',[
+    'uses'=>'UserController@getUsers',
+    'middleware'=>'auth.jwt'
+]);
 /*
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
