@@ -82,15 +82,6 @@ class UserController extends Controller
     }
     public function getUsers()
     {
-        /*try{
-            if(! $user=JWTAuth::parseToken()->authenticate())
-            {
-                return response()->json(['message'=>'User not found'],401);
-            }
-        }catch(JWTException $e)
-        {
-            return response()->json(['message'=>'Exception'],400);
-        }*/
         $users=User::all();
         $response=[
             'users'=>$users

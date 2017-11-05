@@ -15,7 +15,7 @@ class Gamerinfos extends Seeder
         
         foreach (range(1,10) as $index) {
             DB::table('gamerinfo')->insert([
-                'UserId' => $faker->randomElement($usersIDs),
+                'UserId' => $faker->unique()->randomElement($usersIDs),
                 'GameId' => $faker->randomElement($gamesIDs),
                 'GamerName'=>$faker->username
             ]);
