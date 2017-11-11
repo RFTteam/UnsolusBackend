@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Validator;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use JWTAuth;
@@ -43,6 +44,7 @@ class UserController extends Controller
             return response()->json(['user'=>$user],201);
         }
     }
+    //
     public function signin(Request $request)
     {
         $rules = array(
@@ -83,13 +85,44 @@ class UserController extends Controller
             return response()->json(['token'=>$token],200);
         }
     }
+    //
+    public function age($date)
+    {
+        $carbon=new Carbon();
+        $diff=$date->diffInYears($carbon);
+        return $diff;
+    }
+    //
     public function getUsers()
     {
         $users=User::all();
+
         $response=[
-            'users'=>$users
+            'users'=>$users,
+            //'years'=>$years
         ];
         return response()->json($response,200);
     }
-    
+    //
+    public function getUser($id)
+    {
+        $user=User::find($id);
+        $array=json_decode($user,true);
+        $date = new Carbon($array['DateOfBirth']);
+        $year = UserController::age($date);
+        /*foreach ($users as $user) {
+            $array = json_decode($user, true);
+            $date = new Carbon($array['DateOfBirth']);
+            $year[]=UserController::age($date);
+            //$array['year']=UserController::age($date);
+            $years=json_encode($year);
+        }*/
+
+        $response=[
+            'user'=>$user,
+            'year'=>$year
+            //'years'=>$years
+        ];
+        return response()->json($response,200);
+    }
 }

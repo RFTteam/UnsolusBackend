@@ -26,6 +26,10 @@ Route::get('/users',[
     'uses'=>'UserController@getUsers',
     'middleware'=>'auth.jwt'
 ]);
+Route::get('/users/{id}',[
+    'uses'=>'UserController@getUser',
+    'middleware'=>'auth.jwt'
+]);
 Route::get('/players/{game}',[
     'uses'=>'GamerinfoController@getPlayerPerGame',
     'middleware'=>'auth.jwt'
