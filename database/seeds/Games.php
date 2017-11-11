@@ -13,7 +13,7 @@ class Games extends Seeder
     {
         $faker = Faker\Factory::create();
         DB::table('games')->delete();
-        $games=array('Fortnite'=>'Fortnite','LoL'=>'League of Legends');
+        $games=array('Fortnite'=>'Fortnite','LoL'=>'LeagueofLegends');
         foreach($games as $key => $value){
             DB::table('games')->insert([
                 'GameName' =>$value,

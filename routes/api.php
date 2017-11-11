@@ -22,7 +22,7 @@ Route::post('/signin',[
     'uses'=>'UserController@signin'
 ]);
 
-Route::get('/users',[
+Route::get('/users/{game}',[
     'uses'=>'UserController@getUsers',
     'middleware'=>'auth.jwt'
 ]);

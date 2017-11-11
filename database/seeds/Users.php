@@ -17,7 +17,7 @@ class Users extends Seeder
         foreach (range(1,10) as $index) {
             
             DB::table('users')->insert([
-                'Username' => $faker->name,
+                'Username' => $faker->userName,
                 'Email' =>$faker->unique()->email,
                 'Password' =>$faker->password,
                 'CountryID'=>$faker->randomElement($countryIDs),
