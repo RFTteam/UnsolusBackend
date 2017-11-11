@@ -83,19 +83,9 @@ class UserController extends Controller
             return response()->json(['token'=>$token],200);
         }
     }
-    public function getUsers($game)
+    public function getUsers()
     {
-        /*
         $users=User::all();
-        $response=[
-            'users'=>$users
-        ];
-        return response()->json($response,200);*/
-
-        $gameids=DB::table('games')->where('GameName',$game)->pluck('GameID');
-        $gamerinfo_userids=DB::table('Gamerinfo')->whereIn('GameID',$gameids)->pluck('UserID');
-        //$gamerinfo_userids=$gamerinfos;
-        $users=User::whereIn('UserID',$gamerinfo_userids)->get();
         $response=[
             'users'=>$users
         ];
