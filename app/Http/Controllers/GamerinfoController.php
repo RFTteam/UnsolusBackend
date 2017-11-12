@@ -17,5 +17,9 @@ class GamerinfoController extends Controller
         return response()->json($response,200);
     }
 
+    public function newPlayer()
+    {
+
+    }
 
 }

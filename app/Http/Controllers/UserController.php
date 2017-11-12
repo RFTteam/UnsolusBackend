@@ -125,4 +125,27 @@ class UserController extends Controller
         ];
         return response()->json($response,200);
     }
+
+    public function getCurrentUser()
+    {
+        $user=JWTAuth::user();
+        $array=json_decode($user,true);
+        $date = new Carbon($array['DateOfBirth']);
+        $year = UserController::age($date);
+        /*foreach ($users as $user) {
+            $array = json_decode($user, true);
+            $date = new Carbon($array['DateOfBirth']);
+            $year[]=UserController::age($date);
+            //$array['year']=UserController::age($date);
+            $years=json_encode($year);
+        }*/
+
+        $response=[
+            'user'=>$user,
+            'year'=>$year
+            //'years'=>$years
+        ];
+        return response()->json($response,200);
+    }
+
 }

@@ -22,6 +22,11 @@ Route::post('/signin',[
     'uses'=>'UserController@signin'
 ]);
 
+Route::get('/user',[
+    'uses'=>'UserController@getCurrentUser',
+    'middleware'=>'auth.jwt'
+]);
+
 Route::get('/users',[
     'uses'=>'UserController@getUsers',
     'middleware'=>'auth.jwt'
@@ -30,8 +35,14 @@ Route::get('/users/{id}',[
     'uses'=>'UserController@getUser',
     'middleware'=>'auth.jwt'
 ]);
+
 Route::get('/players/{game}',[
     'uses'=>'GamerinfoController@getPlayerPerGame',
+    'middleware'=>'auth.jwt'
+]);
+
+Route::post('/player',[
+    'uses'=>'GamerinfoController@newPlayer',
     'middleware'=>'auth.jwt'
 ]);
 /*
