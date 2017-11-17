@@ -10,8 +10,17 @@ use App\User;
 use JWTAuth;
 use Illuminate\Support\Facades\Input;
 
+/**
+ * Class GamerinfoController
+ * @package App\Http\Controllers
+ */
 class GamerinfoController extends Controller
 {
+    /**
+     * Gets all players linked to a game.
+     * @param $game
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getPlayerPerGame($game)
     {
         $gameids=DB::table('games')->where('GameName',$game)->pluck('GameID');
@@ -22,6 +31,11 @@ class GamerinfoController extends Controller
         return response()->json($response,200);
     }
 
+    /**
+     * Adding a new player.
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function newPlayer(Request $request)
     {
         $user=JWTAuth::user();
@@ -34,12 +48,24 @@ class GamerinfoController extends Controller
         $player->Region=Input::get('Region');
         $player->GameID=$gameid;
         $player->UserID=$userid;
-        //$player->user()->associate($user);
-        //$player->game()->associate($game);
         $player->save();
 
         $response=[
             'player'=>$player
+        ];
+        return response()->json($response,200);
+    }
+
+    /**
+     * Gets the current user's all player accounts.
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getMyPlayers()
+    {
+        $userid=JWTAuth::user()->UserID;
+        $players=DB::table('Gamerinfo')->where('UserID',$userid)->get();
+        $response=[
+            'players'=>$players
         ];
         return response()->json($response,200);
     }

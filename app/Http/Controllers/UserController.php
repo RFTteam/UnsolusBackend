@@ -9,14 +9,19 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use JWTAuth;
-use Illuminate\Support\Facades\Hash;
-use App\Game;
-use App\Gamerinfo;
 use DB;
 
+/**
+ * Class UserController
+ * @package App\Http\Controllers
+ */
 class UserController extends Controller
 {
-    //
+    /**
+     * Registering the user.
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function postUser(Request $request)
     {
         /*$this->validate($request,[
@@ -38,8 +43,7 @@ class UserController extends Controller
             'Password' => 'required|min:2'
         );
         $validator = Validator::make(Input::all(), $rules);
-        
-        // process the login
+
         if ($validator->fails()) {
             $messages = $validator->messages();
             $returnData = array(
@@ -48,7 +52,6 @@ class UserController extends Controller
             );
             return response()->json($returnData, 500);
         } else {
-            // store
             $user = new User();
             $user->Username = Input::get('Username');
             $user->Email = Input::get('Email');
@@ -57,7 +60,12 @@ class UserController extends Controller
             return response()->json(['user'=>$user],201);
         }
     }
-    //
+
+    /**
+     * Sign in, sending the token back.
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function signin(Request $request)
     {
         $rules = array(
@@ -65,8 +73,7 @@ class UserController extends Controller
             'Password' => 'required|min:2'
         );
         $validator = Validator::make(Input::all(), $rules);
-        
-        // process the login
+
         if ($validator->fails()) {
             $messages = $validator->messages();
             $returnData = array(
@@ -75,7 +82,6 @@ class UserController extends Controller
             );
             return response()->json($returnData, 500);
         } else {
-            //$credentials= $request->only('Email','Password');
             $input = $request->only('Email', 'Password');
             $credentials = [
                 'Email' =>$input['Email'],
@@ -98,60 +104,61 @@ class UserController extends Controller
             return response()->json(['token'=>$token],200);
         }
     }
-    //
+
+    /**
+     * Calculates date diff in years.
+     * @param $date
+     * @return mixed
+     */
     public function age($date)
     {
         $carbon=new Carbon();
         $diff=$date->diffInYears($carbon);
         return $diff;
     }
-    //
+
+    /**
+     * Gets all users.
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getUsers()
     {
         $users=User::all();
 
         $response=[
             'users'=>$users,
-            //'years'=>$years
         ];
         return response()->json($response,200);
     }
-    //
+
+
+    /**
+     * Gets one user by id.
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getUser($id)
     {
         $user=User::find($id);
         $array=json_decode($user,true);
         $date = new Carbon($array['DateOfBirth']);
         $year = UserController::age($date);
-        /*foreach ($users as $user) {
-            $array = json_decode($user, true);
-            $date = new Carbon($array['DateOfBirth']);
-            $year[]=UserController::age($date);
-            //$array['year']=UserController::age($date);
-            $years=json_encode($year);
-        }*/
-
         $response=[
             'user'=>$user,
             'year'=>$year
-            //'years'=>$years
         ];
         return response()->json($response,200);
     }
 
+    /**
+     * Gets the authenticated user.
+     */
     public function getCurrentUser()
     {
         $user=JWTAuth::user();
         $array=json_decode($user,true);
         $date = new Carbon($array['DateOfBirth']);
         $year = UserController::age($date);
-        /*foreach ($users as $user) {
-            $array = json_decode($user, true);
-            $date = new Carbon($array['DateOfBirth']);
-            $year[]=UserController::age($date);
-            //$array['year']=UserController::age($date);
-            $years=json_encode($year);
-        }*/
 
         $response=[
             'user'=>$user,
