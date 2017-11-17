@@ -35,6 +35,13 @@ Route::get('/user',[
     'middleware'=>'auth.jwt'
 ]);
 
+/**
+ * Put http request for updating user information.
+ */
+Route::put('/user',[
+    'uses'=>'UserController@updateUser',
+    'middleware'=>'auth.jwt'
+]);
 
 /**
  * Get http request for getting all the registered users.

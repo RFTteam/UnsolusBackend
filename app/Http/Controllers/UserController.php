@@ -168,4 +168,40 @@ class UserController extends Controller
         return response()->json($response,200);
     }
 
+    /**
+     * Update the authenticated user info.
+     */
+    public function updateUser(Request $request)
+    {
+        $user=JWTAuth::user();
+        $rules = array(
+            'Username'       => 'required|unique:Users'.$user->id.',UserID',
+            'Email'      => 'required|email|unique:Users'.$user->id.',UserID',
+            'Password' => 'required|min:2'.$user->id.',UserID',
+            'DateOfBirth' => 'nullable|date',
+            'Country'=> 'nullable',
+            'Language'=> 'nullable'
+        );
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            $returnData = array(
+                'status' => 401,
+                'message' => $messages
+            );
+            return response()->json($returnData, 500);
+        } else {
+            $user->Username = Input::get('Username');
+            $user->Email = Input::get('Email');
+            $user->Password = bcrypt(Input::get('Password'));
+            $user->DateOfBirth = Input::get('DateOfBirth');
+            $countryid=DB::table('Countries')->where('CountryName',$request->input('Country'))->value('CountryID');
+            $languageid=DB::table('Languages')->where('LanguageName',$request->input('Language'))->value('LanguageID');
+            $user->CountryID = $countryid;
+            $user->LanguageID = $languageid;
+            $user->save();
+            return response()->json(['user'=>$user],201);
+        }
+    }
 }
