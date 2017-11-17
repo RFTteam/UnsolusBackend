@@ -19,6 +19,19 @@ class UserController extends Controller
     //
     public function postUser(Request $request)
     {
+        /*$this->validate($request,[
+            'Username' => 'required|unique:Users',
+            'Email'      => 'required|email|unique:Users',
+            'Password' => 'required|min:2'
+        ]);
+        $user = new User([
+            'Username' => $request->input('Username'),
+            'Email' => $request->input('Email'),
+            'Password' => bcrypt($request-> input('Password'))
+        ]);
+        $user->save();
+        return response()->json(['user'=>$user],201);*/
+
         $rules = array(
             'Username'       => 'required|unique:Users',
             'Email'      => 'required|email|unique:Users',
