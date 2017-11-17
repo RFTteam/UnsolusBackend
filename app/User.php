@@ -12,6 +12,7 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable;
 
     protected $primaryKey ='UserID';
+    public $timestamps = true;
     /**
      * The attributes that are mass assignable.
      *

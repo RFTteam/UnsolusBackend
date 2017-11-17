@@ -22,9 +22,10 @@ class Users extends Seeder
                 'Password' =>$faker->password,
                 'CountryID'=>$faker->randomElement($countryIDs),
                 'LanguageID'=>$faker->randomElement($languageIDs),
-                'DateOfBirth'=>$faker->dateTime($max = 'now')
-                //'created_at' => $faker->dateTime($max = 'now'),
-                //'updated_at' => $faker->dateTime($max = 'now'),
+                'DateOfBirth'=>$faker->dateTime($max = 'now'),
+                'created_at'=>\Illuminate\Support\Carbon::now(),
+                'updated_at'=> \Illuminate\Support\Carbon::now()
+
             ]);
         }
     }

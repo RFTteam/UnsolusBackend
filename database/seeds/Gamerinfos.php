@@ -17,7 +17,11 @@ class Gamerinfos extends Seeder
             DB::table('gamerinfo')->insert([
                 'UserId' => $faker->unique()->randomElement($usersIDs),
                 'GameId' => $faker->randomElement($gamesIDs),
-                'GamerName'=>$faker->username
+                'GamerName'=>$faker->username,
+                'created_at'=>\Illuminate\Support\Carbon::now(),
+                'updated_at'=> \Illuminate\Support\Carbon::now()
+                //'created_at' => $faker->dateTime($max = 'now'),
+                //'updated_at' => $faker->dateTime($)
             ]);
         }
     }
