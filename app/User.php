@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Carbon\Carbon;
 //use Notifiable;
 
 class User extends Authenticatable implements JWTSubject
@@ -28,9 +29,45 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'Password', 'remember_token',
+        'Password', 'remember_token','CountryID','LanguageID','created_at','updated_at',
     ];
-    
+
+    protected $year;
+    protected  $country;
+    protected $language;
+    protected $appends = ['year','country','language'];
+
+    public function getYearAttribute()
+    {
+        return $this->year;
+
+    }
+    public function setYear($value)
+    {
+        $this->year = $value;
+    }
+
+    public function getCountryAttribute()
+    {
+        return $this->country;
+
+    }
+    public function getLanguageAttribute()
+    {
+        return $this->language;
+
+    }
+    public function setCountry($value)
+    {
+        $this->country= $value;
+    }
+    public function setLanguage($value)
+    {
+        $this->language = $value;
+    }
+
+
+
     public function gamerinfo()
     {
         return $this->hasMany('App\Gamerinfo');

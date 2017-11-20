@@ -124,6 +124,17 @@ class UserController extends Controller
     public function getUsers()
     {
         $users=User::all();
+        foreach ($users as $user)
+        {
+            $array=json_decode($user,true);
+            $date = new Carbon($array['DateOfBirth']);
+            $year = UserController::age($date);
+            $user->setYear($year);
+            $country= DB::table('Countries')->where('CountryID',$user->CountryID)->value('Countryname');
+            $language=DB::table('Languages')->where('LanguageID',$user->LanguageID)->value('Languagename');
+            $user->setCountry($country);
+            $user->setLanguage($language);
+        }
 
         $response=[
             'users'=>$users,
@@ -143,6 +154,11 @@ class UserController extends Controller
         $array=json_decode($user,true);
         $date = new Carbon($array['DateOfBirth']);
         $year = UserController::age($date);
+        $user->setYear($year);
+        $country= DB::table('Countries')->where('CountryID',$user->CountryID)->value('Countryname');
+        $language=DB::table('Languages')->where('LanguageID',$user->LanguageID)->value('Languagename');
+        $user->setCountry($country);
+        $user->setLanguage($language);
         $response=[
             'user'=>$user,
             'year'=>$year
@@ -159,11 +175,13 @@ class UserController extends Controller
         $array=json_decode($user,true);
         $date = new Carbon($array['DateOfBirth']);
         $year = UserController::age($date);
-
+        $user->setYear($year);
+        $country= DB::table('Countries')->where('CountryID',$user->CountryID)->value('Countryname');
+        $language=DB::table('Languages')->where('LanguageID',$user->LanguageID)->value('Languagename');
+        $user->setCountry($country);
+        $user->setLanguage($language);
         $response=[
-            'user'=>$user,
-            'year'=>$year
-            //'years'=>$years
+            'user'=>$user
         ];
         return response()->json($response,200);
     }
