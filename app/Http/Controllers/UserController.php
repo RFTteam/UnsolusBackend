@@ -219,6 +219,16 @@ class UserController extends Controller
             $user->CountryID = $countryid;
             $user->LanguageID = $languageid;
             $user->save();
+
+            //year,countryname,languagename
+            $array=json_decode($user,true);
+            $date = new Carbon($array['DateOfBirth']);
+            $year = UserController::age($date);
+            $user->setYear($year);
+            $country= DB::table('Countries')->where('CountryID',$user->CountryID)->value('Countryname');
+            $language=DB::table('Languages')->where('LanguageID',$user->LanguageID)->value('Languagename');
+            $user->setCountry($country);
+            $user->setLanguage($language);
             return response()->json(['user'=>$user],201);
         }
     }
