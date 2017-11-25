@@ -8,6 +8,8 @@ class Gamerinfo extends Model
 {
     protected $table='Gamerinfo';
     public $timestamps = true;
+    protected $game;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -16,6 +18,28 @@ class Gamerinfo extends Model
     protected $fillable = [
         'GamerName','GameId','UserId','Rank','Role','Region'
     ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'GamerId', 'UserID','GameID','created_at','updated_at',
+    ];
+
+    protected $appends = ['game'];
+
+    public function getGameAttribute()
+    {
+        return $this->game;
+    }
+
+    public function setGame($value)
+    {
+        $this->game=$value;
+    }
+
 
     public function user()
     {

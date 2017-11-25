@@ -24,9 +24,14 @@ class GamerinfoController extends Controller
     public function getPlayerPerGame($game)
     {
         $gameids=DB::table('games')->where('GameName',$game)->pluck('GameID');
-        $players=DB::table('Gamerinfo')->whereIn('GameID',$gameids)->get();
+        //$players=DB::table('Gamerinfo')->whereIn('GameID',$gameids)->get();
+        $players=Gamerinfo::whereIn('GameID',$gameids)->get();
+        foreach($players as $player)
+        {
+            $player->setGame($game);
+        }
         $response=[
-            'users'=>$players
+            'players'=>$players
         ];
         return response()->json($response,200);
     }
@@ -49,6 +54,8 @@ class GamerinfoController extends Controller
         $player->GameID=$gameid;
         $player->UserID=$userid;
         $player->save();
+        $game= DB::table('Games')->where('GameID',$player->GameID)->value('Gamename');
+        $player->setGame($game);
 
         $response=[
             'player'=>$player
@@ -63,7 +70,13 @@ class GamerinfoController extends Controller
     public function getMyPlayers()
     {
         $userid=JWTAuth::user()->UserID;
-        $players=DB::table('Gamerinfo')->where('UserID',$userid)->get();
+        //$players=DB::table('Gamerinfo')->where('UserID',$userid)->get();
+        $players=Gamerinfo::where('UserID',$userid)->get();
+        foreach ($players as $player)
+        {
+            $game= DB::table('Games')->where('GameID',$player->GameID)->value('Gamename');
+            $player->setGame($game);
+        }
         $response=[
             'players'=>$players
         ];
