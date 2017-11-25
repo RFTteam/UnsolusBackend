@@ -85,6 +85,16 @@ Route::get('/myaccounts',[
 ]);
 
 /**
+ * Put http request for updating the player info
+ * The player is given by the id.
+ */
+Route::put('/player/{id}',[
+    'uses'=>'GamerinfoController@updatePlayer',
+    'middleware'=>'auth.jwt'
+]);
+
+
+/**
  * Get http request for getting all games containing their name.
  */
 Route::get('/games',[

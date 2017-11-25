@@ -47,7 +47,7 @@ class GamerinfoController extends Controller
         $userid=$user->UserID;
         $gameid=DB::table('Games')->where('GameName',$request->input('Gamename'))->value('GameID');
         $player= new Gamerinfo();
-        $player->Gamername = Input::get('Gamername');
+        $player->GamerName = Input::get('Gamername');
         $player->Rank=Input::get('Rank');
         $player->Role=Input::get('Role');
         $player->Region=Input::get('Region');
@@ -79,6 +79,31 @@ class GamerinfoController extends Controller
         }
         $response=[
             'players'=>$players
+        ];
+        return response()->json($response,200);
+    }
+
+    /**
+     * Update the authenticated user's player info.
+     */
+    public function updatePlayer(Request $request,$id)
+    {
+        $user=JWTAuth::user();
+        $player=Gamerinfo::find($id);
+        $userid=$user->UserID;
+        $gameid=DB::table('Games')->where('GameName',$request->input('Gamename'))->value('GameID');
+        $player->GamerName = Input::get('Gamername');
+        $player->Rank=Input::get('Rank');
+        $player->Role=Input::get('Role');
+        $player->Region=Input::get('Region');
+        $player->GameID=$gameid;
+        $player->UserID=$userid;
+        $player->save();
+        $game= DB::table('Games')->where('GameID',$player->GameID)->value('Gamename');
+        $player->setGame($game);
+
+        $response=[
+            'player'=>$player
         ];
         return response()->json($response,200);
     }

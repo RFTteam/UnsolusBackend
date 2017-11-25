@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Gamerinfo extends Model
 {
     protected $table='Gamerinfo';
+    protected $primaryKey ='GamerId';
     public $timestamps = true;
     protected $game;
 
