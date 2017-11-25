@@ -108,4 +108,14 @@ class GamerinfoController extends Controller
         return response()->json($response,200);
     }
 
+
+    public function deletePlayer($id)
+    {
+        $player=Gamerinfo::findorfail($id);
+        $player->delete();
+        return response()->json(['deleted player:'=>$player],201);
+        //Gamerinfo::destroy($id);
+    }
+
+
 }

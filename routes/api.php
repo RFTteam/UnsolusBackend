@@ -93,6 +93,13 @@ Route::put('/player/{id}',[
     'middleware'=>'auth.jwt'
 ]);
 
+/**
+ * Delete http request for deleting the player, given by the id.
+ */
+Route::delete('/player/{id}',[
+    'uses'=>'GamerinfoController@deletePlayer',
+    'middleware'=>'auth.jwt'
+]);
 
 /**
  * Get http request for getting all games containing their name.

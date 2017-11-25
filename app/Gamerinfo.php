@@ -26,7 +26,7 @@ class Gamerinfo extends Model
      * @var array
      */
     protected $hidden = [
-        'GamerId', 'UserID','GameID','created_at','updated_at',
+        'UserID','GameID','created_at','updated_at',
     ];
 
     protected $appends = ['game'];
