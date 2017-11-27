@@ -186,9 +186,9 @@ class UserController extends Controller
     {
         $user=JWTAuth::user();
         $rules = array(
-            'Username'       => 'required|unique:Users'.$user->id.',UserID',
-            'Email'      => 'required|email|unique:Users'.$user->id.',UserID',
-            'Password' => 'required|min:2'.$user->id.',UserID',
+           // 'Username'       => 'required|unique:Users'.$user->id.',UserID',
+           // 'Email'      => 'required|email|unique:Users'.$user->id.',UserID',
+            'Password' => 'min:2',
             'DateOfBirth' => 'nullable|date',
             'Country'=> 'nullable',
             'Language'=> 'nullable'
@@ -203,9 +203,10 @@ class UserController extends Controller
             );
             return response()->json($returnData, 500);
         } else {
-            $user->Username = Input::get('Username');
-            $user->Email = Input::get('Email');
-            $user->Password = bcrypt(Input::get('Password'));
+            //$user->Username = Input::get('Username');
+            //$user->Email = Input::get('Email');
+            if(Input::get('Password') != null){
+            $user->Password = bcrypt(Input::get('Password'));}
             $user->DateOfBirth = Input::get('DateOfBirth');
             $countryid=DB::table('Countries')->where('CountryName',$request->input('Country'))->value('CountryID');
             $languageid=DB::table('Languages')->where('LanguageName',$request->input('Language'))->value('LanguageID');
