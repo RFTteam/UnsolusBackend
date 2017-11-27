@@ -19,10 +19,7 @@ class GameController extends Controller
     {
         $games=Game::all();
 
-        $response=[
-            'games'=>$games,
-            //'years'=>$years
-        ];
+        $response= $games;
         return response()->json($response,200);
     }
 
@@ -36,10 +33,7 @@ class GameController extends Controller
         $games=Game::all();
         $gamenames=$games->values('GameName');
 
-        $response=[
-            'games'=>$gamenames,
-            //'years'=>$years
-        ];
+        $response= $gamenames;
         return response()->json($response,200);
     }
 

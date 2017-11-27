@@ -30,9 +30,7 @@ class GamerinfoController extends Controller
         {
             $player->setGame($game);
         }
-        $response=[
-            'players'=>$players
-        ];
+        $response= $players;
         return response()->json($response,200);
     }
 
@@ -57,9 +55,7 @@ class GamerinfoController extends Controller
         $game= DB::table('Games')->where('GameID',$player->GameID)->value('Gamename');
         $player->setGame($game);
 
-        $response=[
-            'player'=>$player
-        ];
+        $response= $player;
         return response()->json($response,200);
     }
 
@@ -77,9 +73,7 @@ class GamerinfoController extends Controller
             $game= DB::table('Games')->where('GameID',$player->GameID)->value('Gamename');
             $player->setGame($game);
         }
-        $response=[
-            'players'=>$players
-        ];
+        $response= $players;
         return response()->json($response,200);
     }
 
@@ -102,9 +96,7 @@ class GamerinfoController extends Controller
         $game= DB::table('Games')->where('GameID',$player->GameID)->value('Gamename');
         $player->setGame($game);
 
-        $response=[
-            'player'=>$player
-        ];
+        $response= $player;
         return response()->json($response,200);
     }
 
@@ -113,7 +105,7 @@ class GamerinfoController extends Controller
     {
         $player=Gamerinfo::findorfail($id);
         $player->delete();
-        return response()->json(['deleted player:'=>$player],201);
+        return response()->json($player,201);
         //Gamerinfo::destroy($id);
     }
 

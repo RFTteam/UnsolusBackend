@@ -108,6 +108,23 @@ Route::get('/games',[
     'uses'=>'GameController@getGameNames',
     'middleware'=>'auth.jwt'
 ]);
+
+/**
+ * Get http request for getting all countries.
+ */
+Route::get('/countries',[
+    'uses'=>'CountryController@getCountries',
+    'middleware'=>'auth.jwt'
+]);
+
+/**
+ * Get http request for getting all languages.
+ */
+Route::get('/languages',[
+    'uses'=>'LanguageController@getLanguages',
+    'middleware'=>'auth.jwt'
+]);
+
 /*
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

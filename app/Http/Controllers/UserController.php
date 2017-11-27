@@ -136,9 +136,7 @@ class UserController extends Controller
             $user->setLanguage($language);
         }
 
-        $response=[
-            'users'=>$users,
-        ];
+        $response=$users;
         return response()->json($response,200);
     }
 
@@ -159,10 +157,7 @@ class UserController extends Controller
         $language=DB::table('Languages')->where('LanguageID',$user->LanguageID)->value('Languagename');
         $user->setCountry($country);
         $user->setLanguage($language);
-        $response=[
-            'user'=>$user,
-            'year'=>$year
-        ];
+        $response= $user;
         return response()->json($response,200);
     }
 
@@ -180,9 +175,7 @@ class UserController extends Controller
         $language=DB::table('Languages')->where('LanguageID',$user->LanguageID)->value('Languagename');
         $user->setCountry($country);
         $user->setLanguage($language);
-        $response=[
-            'user'=>$user
-        ];
+        $response= $user;
         return response()->json($response,200);
     }
 
@@ -229,7 +222,7 @@ class UserController extends Controller
             $language=DB::table('Languages')->where('LanguageID',$user->LanguageID)->value('Languagename');
             $user->setCountry($country);
             $user->setLanguage($language);
-            return response()->json(['user'=>$user],201);
+            return response()->json($user,201);
         }
     }
 }
