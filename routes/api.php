@@ -59,6 +59,12 @@ Route::get('/users/{id}',[
     'middleware'=>'auth.jwt'
 ]);
 
+/**
+ * Put http request for generating a new password for the user.
+ */
+Route::put('/user/password',[
+    'uses'=>'UserController@ResetPassword'
+]);
 
 /**
  * Get http request for getting all players per a game.
@@ -124,6 +130,7 @@ Route::get('/languages',[
     'uses'=>'LanguageController@getLanguages',
     'middleware'=>'auth.jwt'
 ]);
+
 
 /*
 Route::middleware('auth:api')->get('/user', function (Request $request) {

@@ -225,4 +225,35 @@ class UserController extends Controller
             return response()->json($user,201);
         }
     }
+    public function ResetPassword(Request $request)
+    {
+        $rules = array(
+            'Email'      => 'required|email|',
+            'Password' => 'required|min:2');
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            $returnData = array(
+                'status' => 401,
+                'message' => $messages
+            );
+            return response()->json($returnData, 500);
+        } else {
+
+        $user=User::where('Email','=',$request->input('Email'))->first();
+        if($user==null)
+        {
+            $returnData = array(
+                'status' => 401,
+                'message' => 'Email does not exist.'
+            );
+            return response()->json($returnData, 500);
+        }
+
+        $user->Password = bcrypt(Input::get('Password'));
+        $user->save();
+        return response()->json($user,201);
+        }
+    }
 }
