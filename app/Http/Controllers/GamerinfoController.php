@@ -26,6 +26,15 @@ class GamerinfoController extends Controller
         $gameids=DB::table('games')->where('GameName',$game)->pluck('GameID');
         //$players=DB::table('Gamerinfo')->whereIn('GameID',$gameids)->get();
         $players=Gamerinfo::whereIn('GameID',$gameids)->get();
+        if(count($gameids)<1)
+        {
+            $returnData = array(
+                'status' => 401,
+                'message' => $game.' game does not exist.'
+            );
+            return response()->json($returnData, 500);
+        }
+
         foreach($players as $player)
         {
             $player->setGame($game);
