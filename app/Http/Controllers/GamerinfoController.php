@@ -117,6 +117,24 @@ class GamerinfoController extends Controller
         return response()->json($player,201);
         //Gamerinfo::destroy($id);
     }
+    public function getAllPlayers(Request $request)
+    {
+        $players=Gamerinfo::all();
+        foreach ($players as $player){
+            $game= DB::table('Games')->where('GameID',$player->GameID)->value('Gamename');
+            $player->setGame($game);
+        }
+        $response=$players;
+        return response()->json($response,200);
+    }
+    public function getPlayer(Request $request,$id)
+    {
+        $player=Gamerinfo::findorfail($id);
+        $game= DB::table('Games')->where('GameID',$player->GameID)->value('Gamename');
+        $player->setGame($game);
+        $response=$player;
+        return response()->json($response,200);
+    }
 
 
 }

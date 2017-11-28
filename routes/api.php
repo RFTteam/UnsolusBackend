@@ -106,6 +106,21 @@ Route::delete('/player/{id}',[
     'uses'=>'GamerinfoController@deletePlayer',
     'middleware'=>'auth.jwt'
 ]);
+/**
+ * Get http request for getting all the players.
+ */
+Route::get('/players',[
+    'uses'=>'GamerinfoController@getAllPlayers',
+    'middleware'=>'auth.jwt'
+]);
+
+/**
+ * Get http request for getting one player, given by the id.
+ */
+Route::get('/player/{id}',[
+    'uses'=>'GamerinfoController@getPlayer',
+    'middleware'=>'auth.jwt'
+]);
 
 /**
  * Get http request for getting all games containing their name.
