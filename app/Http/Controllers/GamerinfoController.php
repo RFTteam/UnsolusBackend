@@ -8,6 +8,7 @@ use DB;
 use App\Game;
 use App\User;
 use JWTAuth;
+use Validator;
 use Illuminate\Support\Facades\Input;
 
 /**
@@ -50,6 +51,28 @@ class GamerinfoController extends Controller
      */
     public function newPlayer(Request $request)
     {
+        /*Validator::extend('uniqueUserAndGame', function ($attribute, $value, $parameters, $validator) {
+            $count = DB::table('Gamerinfo')->where('Gamename', $value)
+                ->where('GamerName', $parameters[0])
+                ->count();
+
+            return $count === 0;
+        });*/
+
+        $rules = array(
+            'Gamename'      => 'required',
+            'Gamername' => 'required'
+        );
+        $validator = Validator::make(Input::all(), $rules);
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            $returnData = array(
+                'status' => 401,
+                'message' => $messages
+            );
+            return response()->json($returnData, 500);
+        } else {
+
         $user=JWTAuth::user();
         $userid=$user->UserID;
         $gameid=DB::table('Games')->where('GameName',$request->input('Gamename'))->value('GameID');
@@ -66,6 +89,7 @@ class GamerinfoController extends Controller
 
         $response= $player;
         return response()->json($response,200);
+        }
     }
 
     /**
