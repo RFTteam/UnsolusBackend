@@ -81,6 +81,8 @@ class GamerinfoController extends Controller
         $player->Rank=Input::get('Rank');
         $player->Role=Input::get('Role');
         $player->Region=Input::get('Region');
+        $player->Server=Input::get('Server');
+        $player->Motivation=Input::get('Motivation');
         $player->GameID=$gameid;
         $player->UserID=$userid;
         $player->save();
@@ -123,6 +125,8 @@ class GamerinfoController extends Controller
         $player->Rank=Input::get('Rank');
         $player->Role=Input::get('Role');
         $player->Region=Input::get('Region');
+        $player->Server=Input::get('Server');
+        $player->Motivation=Input::get('Motivation');
         $player->GameID=$gameid;
         $player->UserID=$userid;
         $player->save();
