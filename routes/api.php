@@ -66,6 +66,10 @@ Route::put('/user/password',[
     'uses'=>'UserController@ResetPassword'
 ]);
 
+Route::get('/allusers',[
+    'uses'=>'UserController@getUsers',
+]);
+
 /**
  * Get http request for getting all players per a game.
  */
