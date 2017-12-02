@@ -17,7 +17,7 @@ class CreateGamerinfoTable extends Migration
             $table->increments('GamerId');
             $table->integer('UserID')->unsigned()->nullable(false);
             $table->integer('GameID')->unsigned()->nullable(false);
-            $table->string('GamerName',20)->nullable(false);
+            $table->string('GamerName',25)->nullable(false);
             $table->timestamps();
         });
          Schema::table('gamerinfo', function($table) {
