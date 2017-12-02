@@ -51,4 +51,8 @@ class Team extends Model
     {
         return $this->belongsTo('App\Language');
     }
+    public function teammember()
+    {
+        return $this->hasMany('App\Teammember');
+    }
 }

@@ -16,4 +16,8 @@ class Country extends Model
     {
         return $this->hasMany('App\User');
     }
+    public function team()
+    {
+        return $this->hasMany('App\Team');
+    }
 }

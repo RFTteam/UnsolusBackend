@@ -51,5 +51,9 @@ class Gamerinfo extends Model
     {
         return $this->belongsTo('App\Game');
     }
+    public function teammember()
+    {
+        return $this->hasMany('App\Teammember');
+    }
     
 }
