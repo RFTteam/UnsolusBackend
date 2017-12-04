@@ -119,6 +119,13 @@ class GamerinfoController extends Controller
     {
         $user=JWTAuth::user();
         $player=Gamerinfo::find($id);
+        if ($player == null) {
+            $returnData = array(
+                'status' => 401,
+                'message' => 'Player account does not exist.'
+            );
+            return response()->json($returnData, 500);
+        }
         $userid=$user->UserID;
         $gameid=DB::table('Games')->where('GameName',$request->input('Gamename'))->value('GameID');
         $player->GamerName = Input::get('Gamername');
@@ -141,6 +148,13 @@ class GamerinfoController extends Controller
     public function deletePlayer($id)
     {
         $player=Gamerinfo::findorfail($id);
+        if ($player == null) {
+            $returnData = array(
+                'status' => 401,
+                'message' => 'Player account does not exist.'
+            );
+            return response()->json($returnData, 500);
+        }
         $player->delete();
         return response()->json($player,201);
         //Gamerinfo::destroy($id);
@@ -158,6 +172,13 @@ class GamerinfoController extends Controller
     public function getPlayer(Request $request,$id)
     {
         $player=Gamerinfo::findorfail($id);
+        if ($player == null) {
+            $returnData = array(
+                'status' => 401,
+                'message' => 'Player account does not exist.'
+            );
+            return response()->json($returnData, 500);
+        }
         $game= DB::table('Games')->where('GameID',$player->GameID)->value('Gamename');
         $player->setGame($game);
         $response=$player;
