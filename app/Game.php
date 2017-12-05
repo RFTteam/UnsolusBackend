@@ -19,5 +19,10 @@ class Game extends Model
     {
         return $this->hasMany('App\Gamerinfo');
     }
+
+    public function team()
+    {
+        return $this->hasMany('App\Team');
+    }
     
 }
