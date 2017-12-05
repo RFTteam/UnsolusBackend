@@ -151,6 +151,15 @@ Route::get('/languages',[
 ]);
 
 
+Route::post('/team',[
+    'uses'=>'TeamController@newTeam',
+    'middleware'=>'auth.jwt'
+]);
+
+Route::delete('/team/{id}',[
+    'uses'=>'TeamController@deleteTeam',
+    'middleware'=>'auth.jwt'
+]);
 /*
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
