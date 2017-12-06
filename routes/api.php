@@ -160,6 +160,21 @@ Route::delete('/team/{id}',[
     'uses'=>'TeamController@deleteTeam',
     'middleware'=>'auth.jwt'
 ]);
+
+Route::get('/teams',[
+    'uses'=>'TeamController@getTeams',
+    'middleware'=>'auth.jwt'
+]);
+Route::get('/teams/{game}',[
+    'uses'=>'TeamController@getTeamsPerGame',
+    'middleware'=>'auth.jwt'
+]);
+
+Route::get('/team/{id}',[
+    'uses'=>'TeamController@getTeam',
+    'middleware'=>'auth.jwt'
+]);
+
 /*
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

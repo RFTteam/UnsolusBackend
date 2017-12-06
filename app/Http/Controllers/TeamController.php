@@ -74,7 +74,7 @@ class TeamController extends Controller
     public function deleteTeam(Request $request,$id)
     {
 
-        $team=Team::findorfail($id);
+        $team=Team::find($id);
         if ($team == null) {
             $returnData = array(
                 'status' => 401,
@@ -86,4 +86,64 @@ class TeamController extends Controller
         return response()->json($team,201);
         //Gamerinfo::destroy($id);
     }
+    public function getTeams()
+    {
+        $teams=Team::all();
+        foreach ($teams as $team){
+            $game= DB::table('Games')->where('GameID',$team->GameID)->value('Gamename');
+            $country= DB::table('Countries')->where('CountryID',$team->CountryID)->value('Countryname');
+            $language=DB::table('Languages')->where('LanguageID',$team->LanguageID)->value('Languagename');
+            $team->setCountry($country);
+            $team->setLanguage($language);
+            $team->setGame($game);
+        }
+        $response=$teams;
+        return response()->json($response,200);
+    }
+
+    public function getTeamsPerGame(Request $request,$game)
+    {
+        $gameids=DB::table('games')->where('GameName',$game)->pluck('GameID');
+        $teams=Team::whereIn('GameID',$gameids)->get();
+        if(count($gameids)<1)
+        {
+            $returnData = array(
+                'status' => 401,
+                'message' => $game.' game does not exist.'
+            );
+            return response()->json($returnData, 500);
+        }
+
+        foreach($teams as $team)
+        {
+            $team->setGame($game);
+            $country= DB::table('Countries')->where('CountryID',$team->CountryID)->value('Countryname');
+            $language=DB::table('Languages')->where('LanguageID',$team->LanguageID)->value('Languagename');
+            $team->setCountry($country);
+            $team->setLanguage($language);
+        }
+        $response= $teams;
+        return response()->json($response,200);
+    }
+
+    public function getTeam($id)
+    {
+        $team=Team::find($id);
+        if ($team == null) {
+            $returnData = array(
+                'status' => 401,
+                'message' => 'Team does not exist.'
+            );
+            return response()->json($returnData, 500);
+        }
+        $game= DB::table('Games')->where('GameID',$team->GameID)->value('Gamename');
+        $team->setGame($game);
+        $country= DB::table('Countries')->where('CountryID',$team->CountryID)->value('Countryname');
+        $team->setCountry($country);
+        $language=DB::table('Languages')->where('LanguageID',$team->LanguageID)->value('Languagename');
+        $team->setLanguage($language);
+        $response=$team;
+        return response()->json($response,200);
+    }
+
 }
