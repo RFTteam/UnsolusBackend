@@ -146,4 +146,44 @@ class TeamController extends Controller
         return response()->json($response,200);
     }
 
+    public function updateTeam(Request $request,$id)
+    {
+            $team=DB::table('Teams')->where('TeamID',$id)->first();
+            //$userid=JWTAuth::user()->UserID;
+
+            if(Input::get('Teamname') != null){
+                $team->Teamname = Input::get('Teamname');
+            }
+
+            if(Input::get('Teamgoal') != null){
+                $team->Teamgoal = Input::get('Teamgoal');
+            }
+            if(Input::get('Server') != null){
+                $team->Server = Input::get('Server');
+            }
+            if(Input::get('Country') != null){
+                $countryid=DB::table('Countries')->where('CountryName',$request->input('Country'))->value('CountryID');
+                $team->CountryID = $countryid;
+            }
+            if(Input::get('Language') != null){
+                $languageid=DB::table('Languages')->where('LanguageName',$request->input('Language'))->value('LanguageID');
+                $team->LanguageID = $languageid;
+            }
+            if(Input::get('Gamename') != null){
+                $gameid=DB::table('Games')->where('GameName',$request->input('Gamename'))->value('GameID');
+                $team->GameID = $gameid;
+            }
+            $team->save();
+
+
+
+            $game= DB::table('Games')->where('GameID',$team->GameID)->value('Gamename');
+            $country= DB::table('Countries')->where('CountryID',$team->CountryID)->value('Countryname');
+            $language=DB::table('Languages')->where('LanguageID',$team->LanguageID)->value('Languagename');
+            $team->setCountry($country);
+            $team->setLanguage($language);
+            $team->setGame($game);
+            return response()->json($team,201);
+    }
+
 }

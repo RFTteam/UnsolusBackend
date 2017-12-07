@@ -117,8 +117,17 @@ class GamerinfoController extends Controller
      */
     public function updatePlayer(Request $request,$id)
     {
-        $user=JWTAuth::user();
         $player=Gamerinfo::find($id);
+        $user=JWTAuth::user();
+        if($user->UserID != $player->UserID)
+        {
+            $returnData = array(
+                'status' => 401,
+                'message' => 'You don not have rights to update.'
+            );
+            return response()->json($returnData, 500);
+        }
+
         if ($player == null) {
             $returnData = array(
                 'status' => 401,
@@ -126,6 +135,7 @@ class GamerinfoController extends Controller
             );
             return response()->json($returnData, 500);
         }
+
         $userid=$user->UserID;
         $gameid=DB::table('Games')->where('GameName',$request->input('Gamename'))->value('GameID');
         $player->GamerName = Input::get('Gamername');
@@ -148,6 +158,7 @@ class GamerinfoController extends Controller
     public function deletePlayer($id)
     {
         $player=Gamerinfo::findorfail($id);
+        $user=JWTAuth::user();
         if ($player == null) {
             $returnData = array(
                 'status' => 401,
@@ -155,6 +166,17 @@ class GamerinfoController extends Controller
             );
             return response()->json($returnData, 500);
         }
+
+        if($user->UserID != $player->UserID)
+        {
+            $returnData = array(
+                'status' => 401,
+                'message' => 'You don not have rights to delete.'
+            );
+            return response()->json($returnData, 500);
+        }
+
+
         $player->delete();
         return response()->json($player,201);
         //Gamerinfo::destroy($id);
