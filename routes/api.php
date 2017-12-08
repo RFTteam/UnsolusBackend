@@ -175,6 +175,15 @@ Route::get('/team/{id}',[
     'middleware'=>'auth.jwt'
 ]);
 
+Route::post('/teammember/{id}',[
+    'uses'=>'TeammemberController@joinTeam',
+    'middleware'=>'auth.jwt'
+]);
+
+Route::delete('/teammember/{id}',[
+    'uses'=>'TeammemberController@leaveTeam',
+    'middleware'=>'auth.jwt'
+]);
 /*
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

@@ -55,9 +55,9 @@ class TeamController extends Controller
                 return response()->json($returnData, 500);
             }
             $team->GameID = $gameid;
-            $team->save();
-            $teammember->TeamID=$team->TeamID;
+            $team->save();$teammember->TeamID=$team->TeamID;
             $teammember->GamerID =$playerid;
+
             $teammember->save();
 
 
