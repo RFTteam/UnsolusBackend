@@ -50,5 +50,6 @@ class Users extends Seeder
             'updated_at'=> \Illuminate\Support\Carbon::now()
 
         ]);
+
     }
 }

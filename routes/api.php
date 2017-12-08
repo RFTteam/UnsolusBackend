@@ -150,38 +150,67 @@ Route::get('/languages',[
     'middleware'=>'auth.jwt'
 ]);
 
-
+/**
+ * Post http request for adding a new team.
+ */
 Route::post('/team',[
     'uses'=>'TeamController@newTeam',
     'middleware'=>'auth.jwt'
 ]);
 
+/**
+ * Delete http request for deleting a team, given by id.
+ */
 Route::delete('/team/{id}',[
     'uses'=>'TeamController@deleteTeam',
     'middleware'=>'auth.jwt'
 ]);
 
+/**
+ * Get http request for getting all teams.
+ */
 Route::get('/teams',[
     'uses'=>'TeamController@getTeams',
     'middleware'=>'auth.jwt'
 ]);
+
+/**
+ * Get http request for getting teams by game.
+ */
 Route::get('/teams/{game}',[
     'uses'=>'TeamController@getTeamsPerGame',
     'middleware'=>'auth.jwt'
 ]);
 
+/**
+ * Get http request for getting the team, given by id.
+ */
 Route::get('/team/{id}',[
     'uses'=>'TeamController@getTeam',
     'middleware'=>'auth.jwt'
 ]);
 
+/**
+ * Post http request for joining the team.
+ */
 Route::post('/teammember/{id}',[
     'uses'=>'TeammemberController@joinTeam',
     'middleware'=>'auth.jwt'
 ]);
 
+/**
+ * Delete http request for leaving the team.
+ */
 Route::delete('/teammember/{id}',[
     'uses'=>'TeammemberController@leaveTeam',
+    'middleware'=>'auth.jwt'
+]);
+
+/**
+ * Get http request for getting all teammembers per a team.
+ */
+Route::get('/teammembers/{id}',[
+    'uses'=>'TeammemberController@getPlayersPerTeam',
     'middleware'=>'auth.jwt'
 ]);
 /*
