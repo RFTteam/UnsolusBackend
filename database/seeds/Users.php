@@ -28,5 +28,27 @@ class Users extends Seeder
 
             ]);
         }
+        DB::table('users')->insert([
+            'Username' => 'default',
+            'Email' =>'default@gmail.com',
+            'Password' =>bcrypt('default'),
+            'CountryID'=>$faker->randomElement($countryIDs),
+            'LanguageID'=>$faker->randomElement($languageIDs),
+            'DateOfBirth'=>$faker->dateTime($max = 'now'),
+            'created_at'=>\Illuminate\Support\Carbon::now(),
+            'updated_at'=> \Illuminate\Support\Carbon::now()
+
+        ]);
+        DB::table('users')->insert([
+            'Username' => 'mark',
+            'Email' =>'mark@gmail.com',
+            'Password' =>bcrypt('default'),
+            'CountryID'=>$faker->randomElement($countryIDs),
+            'LanguageID'=>$faker->randomElement($languageIDs),
+            'DateOfBirth'=>$faker->dateTime($max = 'now'),
+            'created_at'=>\Illuminate\Support\Carbon::now(),
+            'updated_at'=> \Illuminate\Support\Carbon::now()
+
+        ]);
     }
 }
