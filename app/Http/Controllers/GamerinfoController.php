@@ -10,6 +10,7 @@ use App\User;
 use JWTAuth;
 use Validator;
 use Illuminate\Support\Facades\Input;
+use Carbon\Carbon;
 
 /**
  * Class GamerinfoController
@@ -205,6 +206,26 @@ class GamerinfoController extends Controller
         $player->setGame($game);
         $response=$player;
         return response()->json($response,200);
+    }
+    public function getLanguage(Request $request,$id)
+    {
+        $userid=DB::table('gamerinfo')->where('GamerID',$id)->value('UserID');
+        $user=User::find($userid);
+        $country= DB::table('Countries')->where('CountryID',$user->CountryID)->value('Countryname');
+        $language=DB::table('Languages')->where('LanguageID',$user->LanguageID)->value('Languagename');
+        $user->setCountry($country);
+        $user->setLanguage($language);
+        return response()->json($user->language,200);
+    }
+    public function getCountry(Request $request,$id)
+    {
+        $userid=DB::table('gamerinfo')->where('GamerID',$id)->value('UserID');
+        $user=User::find($userid);
+        $country= DB::table('Countries')->where('CountryID',$user->CountryID)->value('Countryname');
+        $language=DB::table('Languages')->where('LanguageID',$user->LanguageID)->value('Languagename');
+        $user->setCountry($country);
+        $user->setLanguage($language);
+        return response()->json($user->country,200);
     }
 
 
