@@ -10,7 +10,8 @@
         "fzaninotto/faker": "^1.7",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-		"tymon/jwt-auth": "0.5.*"
+        "tymon/jwt-auth": "dev-develop",
+        "doctrine/dbal": "v2.5.*"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

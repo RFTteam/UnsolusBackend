@@ -17,7 +17,7 @@ class Gamerinfo extends Model
      * @var array
      */
     protected $fillable = [
-        'GamerName','GameId','UserId','Rank','Role','Region','Server','Motivation'
+        'GamerName','GameId','UserId','Rank','Role','Style','Server','Motivation'
     ];
 
     /**
