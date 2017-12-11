@@ -227,6 +227,16 @@ class GamerinfoController extends Controller
         $user->setLanguage($language);
         return response()->json($user->country,200);
     }
+    public function getEmail(Request $request,$id)
+    {
+        $userid=DB::table('gamerinfo')->where('GamerID',$id)->value('UserID');
+        $user=User::find($userid);
+        $country= DB::table('Countries')->where('CountryID',$user->CountryID)->value('Countryname');
+        $language=DB::table('Languages')->where('LanguageID',$user->LanguageID)->value('Languagename');
+        $user->setCountry($country);
+        $user->setLanguage($language);
+        return response()->json($user->Email,200);
+    }
 
 
 }

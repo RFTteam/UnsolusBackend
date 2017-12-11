@@ -136,6 +136,11 @@ Route::get('/player/country/{id}',[
     'uses'=>'GamerinfoController@getCountry',
     'middleware'=>'auth.jwt'
 ]);
+
+Route::get('/player/email/{id}',[
+    'uses'=>'GamerinfoController@getEmail',
+    'middleware'=>'auth.jwt'
+]);
 /**
  * Get http request for getting all games containing their name.
  */
