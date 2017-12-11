@@ -200,6 +200,11 @@ Route::get('/team/{id}',[
     'middleware'=>'auth.jwt'
 ]);
 
+Route::get('/myteams',[
+    'uses'=>'TeamController@getMyTeams',
+    'middleware'=>'auth.jwt'
+]);
+
 /**
  * Post http request for joining the team.
  */

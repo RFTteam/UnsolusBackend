@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Team;
 use App\Teammember;
+use App\Gamerinfo;
 use Validator;
 use Illuminate\Support\Facades\Input;
 use JWTAuth;
@@ -185,5 +186,29 @@ class TeamController extends Controller
             $team->setGame($game);
             return response()->json($team,201);
     }
+    public function getMyteams()
+    {
+        $userid=JWTAuth::user()->UserID;
+        $playerids=Gamerinfo::where('UserID', $userid)->pluck('GamerId')->toArray();
+        /*$players=Gamerinfo::where('UserID',$userid)->get();
+        $subset = $players->map(function ($player) {
+            return collect($player->toArray())
+                ->only(['GamerId'])
+                ->all();
+        });*/
+        $teamids=Teammember::whereIn('GamerID',$playerids)->pluck('TeamID')->toArray();
+        $teams=Team::whereIn('TeamID',$teamids)->get();
+        foreach($teams as $team){
+            $game= DB::table('Games')->where('GameID',$team->GameID)->value('Gamename');
+            $country= DB::table('Countries')->where('CountryID',$team->CountryID)->value('Countryname');
+            $language=DB::table('Languages')->where('LanguageID',$team->LanguageID)->value('Languagename');
+            $team->setCountry($country);
+            $team->setLanguage($language);
+            $team->setGame($game);
+        }
+        return response()->json($teams,201);
+        //$teamids=Teammember::whereIn('GamerID',$playerids)->get('TeamID');
+    }
+
 
 }
