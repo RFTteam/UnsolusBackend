@@ -22,7 +22,7 @@ class Gamerinfos extends Seeder
         $lolservers=["BR","EUNE","EUW","LAN","LAS","NA","OCE","RU",
             "TR","JP","SEA","SG/MY","PH","ID","TH","VN","TW","KR","PBE","CN"];
         $lolstyles=["Aggressive","Passive","Roamer","Ganker","Invader","Farmer"];
-        $lolmotivations=["Become professional","Play for fun","Play in amateur leagues"];
+        $motivations=["Become professional","Play for fun","Play in amateur leagues"];
         $fnitestyles = ["Offensive", "Defensive"];
         $fniteservers = ["america", "europe"];
         $fniteroles = ["Soldier", "Constructor", "Ninja", "Outlander"];
@@ -39,6 +39,7 @@ class Gamerinfos extends Seeder
                     'Role'=> $faker->randomElement($fniteroles),
                     'Server'=>$faker->randomElement($fniteservers),
                     'Style'=>$faker->randomElement($fnitestyles),
+                    'Motivation'=>$faker->randomElement($motivations),
                     'created_at'=>\Illuminate\Support\Carbon::now(),
                     'updated_at'=> \Illuminate\Support\Carbon::now()
                 ]);
@@ -52,7 +53,7 @@ class Gamerinfos extends Seeder
                 'Rank'=>$faker->randomElement($lolranks),
                 'Server'=>$faker->randomElement($lolservers),
                 'Style'=>$faker->randomElement($lolstyles),
-                'Motivation'=>$faker->randomElement($lolmotivations),
+                'Motivation'=>$faker->randomElement($motivations),
                 'created_at'=>\Illuminate\Support\Carbon::now(),
                 'updated_at'=> \Illuminate\Support\Carbon::now()
             ]);
