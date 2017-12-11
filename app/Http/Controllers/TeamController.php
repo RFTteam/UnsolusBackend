@@ -190,12 +190,6 @@ class TeamController extends Controller
     {
         $userid=JWTAuth::user()->UserID;
         $playerids=Gamerinfo::where('UserID', $userid)->pluck('GamerId')->toArray();
-        /*$players=Gamerinfo::where('UserID',$userid)->get();
-        $subset = $players->map(function ($player) {
-            return collect($player->toArray())
-                ->only(['GamerId'])
-                ->all();
-        });*/
         $teamids=Teammember::whereIn('GamerID',$playerids)->pluck('TeamID')->toArray();
         $teams=Team::whereIn('TeamID',$teamids)->get();
         foreach($teams as $team){
@@ -207,7 +201,6 @@ class TeamController extends Controller
             $team->setGame($game);
         }
         return response()->json($teams,201);
-        //$teamids=Teammember::whereIn('GamerID',$playerids)->get('TeamID');
     }
 
 

@@ -15,7 +15,7 @@ class AddRankRoleRegionColumns extends Migration
     {
         //
         Schema::table('gamerinfo', function (Blueprint $table) {
-            $table->string('Rank',10)->nullable();
+            $table->string('Rank',20)->nullable();
             $table->string('Role',20)->nullable();
             $table->string('Region',20)->nullable();
         });

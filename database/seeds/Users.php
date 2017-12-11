@@ -14,7 +14,7 @@ class Users extends Seeder
         $faker = Faker\Factory::create();
         $countryIDs = DB::table('countries')->pluck('CountryId')->all();
         $languageIDs= DB::table('languages')->pluck('LanguageId')->all();
-        foreach (range(1,10) as $index) {
+        foreach (range(1,20) as $index) {
             
             DB::table('users')->insert([
                 'Username' => $faker->userName,
@@ -40,15 +40,45 @@ class Users extends Seeder
 
         ]);
         DB::table('users')->insert([
-            'Username' => 'mark',
-            'Email' =>'mark@gmail.com',
+        'Username' => 'mark',
+        'Email' =>'mark@gmail.com',
+        'Password' =>bcrypt('default'),
+        'CountryID'=>$faker->randomElement($countryIDs),
+        'LanguageID'=>$faker->randomElement($languageIDs),
+        'DateOfBirth'=>$faker->dateTime($max = 'now'),
+        'created_at'=>\Illuminate\Support\Carbon::now(),
+        'updated_at'=> \Illuminate\Support\Carbon::now()
+
+    ]);
+        DB::table('users')->insert([
+        'Username' => 'user12',
+        'Email' =>'user12@freemail.hu',
+        'Password' =>bcrypt('default'),
+        'CountryID'=>$faker->randomElement($countryIDs),
+        'LanguageID'=>$faker->randomElement($languageIDs),
+        'DateOfBirth'=>$faker->dateTime($max = 'now'),
+        'created_at'=>\Illuminate\Support\Carbon::now(),
+        'updated_at'=> \Illuminate\Support\Carbon::now(),
+    ]);
+        DB::table('users')->insert([
+            'Username' => 'rekajanka',
+            'Email' =>'rkjanka@hotmail.com',
             'Password' =>bcrypt('default'),
             'CountryID'=>$faker->randomElement($countryIDs),
             'LanguageID'=>$faker->randomElement($languageIDs),
             'DateOfBirth'=>$faker->dateTime($max = 'now'),
             'created_at'=>\Illuminate\Support\Carbon::now(),
-            'updated_at'=> \Illuminate\Support\Carbon::now()
-
+            'updated_at'=> \Illuminate\Support\Carbon::now(),
+        ]);
+        DB::table('users')->insert([
+            'Username' => 'crmessi',
+            'Email' =>'vazatorpe@gmail.com',
+            'Password' =>bcrypt('default'),
+            'CountryID'=>$faker->randomElement($countryIDs),
+            'LanguageID'=>$faker->randomElement($languageIDs),
+            'DateOfBirth'=>$faker->dateTime($max = 'now'),
+            'created_at'=>\Illuminate\Support\Carbon::now(),
+            'updated_at'=> \Illuminate\Support\Carbon::now(),
         ]);
 
     }
